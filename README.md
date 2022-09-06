@@ -1,2 +1,2 @@
 # angular-php-app
-translate app for multiple languages
+Translate app for multiple languages.
