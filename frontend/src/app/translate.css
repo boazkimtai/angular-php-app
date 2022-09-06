@@ -1,0 +1,92 @@
+
+.wrapper {
+	position: relative;
+	padding: 1em;
+	margin: 1em auto;
+	max-width: 600px;
+	border: solid #efefef 1px;
+	border-radius: 4px;
+}
+
+.search-input {
+	margin-top: 1em;
+	border-bottom: solid #efefef 1px;
+}
+
+.search-input .flex {
+	padding: 1em 0;
+}
+
+.search-input .flex:nth-child(1) {
+	gap: .5em;
+}
+
+.search-input .flex:nth-child(1) .select-wrapper {
+	flex-grow: 1;
+	max-width: 160px;
+}
+
+.swap-btn {
+	color: var(--blue1);
+}
+
+.search-input .flex .text-input-wrapper {
+	flex-basis: 320px;
+	padding: 0 4px;
+}
+
+::ng-deep .mat-form-field {
+	width: 100%;
+}
+
+::ng-deep .search-input .mat-form-field-wrapper {
+	padding: 0;
+}
+
+::ng-deep .mat-form-field-infix {
+	padding: 4px 0;
+	border-top: solid .5em transparent;
+}
+
+.search-input .search-btn {
+	padding: 2px 0;
+	width: 100px;
+	background: var(--blue1);
+	color: #fff;
+}
+.translations-wrapper {
+	padding: 1em 0.5em;
+	min-height: 100px;
+}
+
+.translation-item {
+	margin-top: 1em;
+	padding: 1em 0.5em;
+	border: solid #eee 1px;
+	border-radius: 4px;
+	color: #555;
+}
+
+.translation-item .phrase {
+	font-size: 18px;
+}
+
+.translation-item .type {
+	display: inline-block;
+	padding: 0 4px;
+}
+
+.translations-wrapper p {
+	margin-top: 0.5em;
+}
+
+.lang2-translation-wrapper {
+	padding: .5em;
+}
+
+.spinner-txt-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #555;
+}

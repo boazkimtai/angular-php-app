@@ -1,0 +1,38 @@
+.content .term-item {
+	padding: 4px 0;
+}
+.content .search-txt-wrapper{
+	text-align: center;
+}
+.footer {
+	padding-top: 1em;
+	border-top: solid #f1f1f1 2px;
+}
+.footer > div{
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+.footer > div > div{
+	display: flex;
+	gap: 1em;
+	flex-basis: 50%;
+}
+.footer > div > div:nth-child(2){
+	display: inline-block;
+	text-align: right;
+}
+.footer button {
+	width: 100px;
+	background: #efefef;
+}
+.footer button.save {
+	background-color: var(--blue1);
+	color: #fff;
+}
+.footer span.link{
+	display: inline-flex;
+	flex-flow: row wrap;
+	color: var(--blue1);
+	cursor: pointer;
+}

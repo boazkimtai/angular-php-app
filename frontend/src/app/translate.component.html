@@ -1,0 +1,80 @@
+<div class="wrapper">
+	<form (ngSubmit)="findTranslations()">
+		<div class="search-input">
+			<div class="flex justify-center items-center">
+				<div class="select-wrapper">
+					<mat-form-field>
+						<mat-select [(ngModel)]="l1_id" (ngModelChange)="search()" name="l1_id">
+							<mat-option *ngFor="let language of languages" [value]="language.id" [disabled]="language.id==l2_id">
+								{{language.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div>
+					<button type="button" class="swap-btn" (click)="swapLanguages()" mat-button>
+						<mat-icon>swap_horiz</mat-icon>
+					</button>
+				</div>
+				<div class="select-wrapper">
+					<mat-form-field>
+						<mat-select [(ngModel)]="l2_id" (ngModelChange)="search()" name="l2_id">
+							<mat-option *ngFor="let language of languages" [value]="language.id" [disabled]="language.id==l1_id">
+								{{language.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="flex justify-center items-center">
+				<div class="text-input-wrapper">
+					<mat-form-field>
+						<input class="text-input" type="text" name="" [(ngModel)]="text" (keyup)="search()" name="q" placeholder="Search" [matAutocomplete]="suggestions" matInput/>
+					</mat-form-field>
+					<mat-autocomplete #suggestions>
+						<mat-option *ngFor="let result of suggestionResults" [value]="result" (click)="findTranslations()">{{result}}</mat-option>
+					</mat-autocomplete>
+				</div>
+				<div>
+					<button type="submit" class="search-btn" (click)="findTranslations()" mat-button>
+						Search
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="translations-wrapper">
+		<div class="translation-item" *ngFor="let result of results">
+			<div>
+				<div>
+					<span class="phrase">{{phrase}}</span>
+					<span class="type">:{{result.type}}</span>
+				</div>
+				<div>
+					<p>{{result.meaning}}</p>
+				</div>
+				<div>
+				</div>
+			</div>
+			<div class="lang2-translation-wrapper" *ngFor="let translation of result.translations">
+				<div>
+					<span>{{translation.name}}</span>
+				</div>
+				<div>
+					<p>{{translation.meaning}}</p>
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div class="spinner-txt-wrapper">
+			<div *ngIf="isSearching">
+				<mat-progress-spinner mode="indeterminate" [diameter]="50" [strokeWidth]="3"></mat-progress-spinner>
+				<p>Searching...</p>
+			</div>
+			<div *ngIf="results.length==0 && phrase && !isSearching">
+				<p>No results found</p>
+			</div>
+		</div>
+	</div>
+</div>

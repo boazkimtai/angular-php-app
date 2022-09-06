@@ -1,0 +1,16 @@
+<div class="content-wrapper">
+  <div class="header">
+    <div>
+      <button (click)="page=0" *ngIf="page==1" mat-button>Back</button>
+    </div>
+    <div>
+      <button (click)="page=1" *ngIf="page==0" mat-button>
+        <mat-icon>add</mat-icon>
+        <span>add translation</span>
+      </button>
+    </div>
+  </div>
+	<translate [(page)]="page" [languages]="languages" *ngIf="page==0"></translate>
+  <translate-form [(page)]="page" [languages]="languages" [partsOfSpeech]="partsOfSpeech" *ngIf="page==1">
+  </translate-form>
+</div>

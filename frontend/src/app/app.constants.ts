@@ -1,0 +1,12 @@
+
+export const PARTS_OF_SPEECH = [
+	"NOUN",
+	"PRONOUN",
+	"PREPOSITION",
+	"ARTICLE",
+	"VERB",
+	"ADVERB",
+	"ADJECTIVE",
+	"CONJUCTION",
+	'INTERJECTION'
+];

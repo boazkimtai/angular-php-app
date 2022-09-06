@@ -1,0 +1,43 @@
+<div>
+	<div mat-dialog-title>
+		<span>Select term</span>
+	</div>
+	<div class="content" mat-dialog-content>
+		<div class="search-txt-wrapper" *ngIf="isSearching">
+			<p>Searching terms. Please wait...</p>
+		</div>
+		<div *ngIf="step==0 && !isSearching">
+			<p>
+			Select the English term related to what you would like to translate. If term is not listed, create new
+			</p>
+		</div>
+		<div *ngIf="step==1">
+			<input type="text" name="" appearance="outline" placeholder="Type term" [(ngModel)]="createdTerm" maxlength="50" matInput/>
+		</div>
+		<div *ngIf="step==0 && !isSearching">
+			<div>
+				<mat-radio-group [(ngModel)]="term">
+					<div class="term-item" *ngFor="let term of data">
+						<mat-radio-button [value]="term.name">{{term.name}}</mat-radio-button>
+					</div>
+				</mat-radio-group>
+			</div>
+		</div>
+	</div>
+	<div class="footer" mat-dialog-actions>
+		<div>
+			<div>
+				<button *ngIf="step==0" (click)="save(term)" class="save" mat-button>OK</button>
+				<button *ngIf="step==0" (click)="cancel()" mat-button>Cancel</button>
+				<span class="link" *ngIf="step==1" (click)="step=0" mat-button>Back</span>
+			</div>
+			<div>
+				<span class="link" (click)="step=1" [hidden]="step==1">
+					<mat-icon>add</mat-icon>
+					<span>create new</span>
+				</span>
+				<button *ngIf="step==1" (click)="save(createdTerm)" class="save" mat-button>Save</button>
+			</div>
+		</div>
+	</div>
+</div>

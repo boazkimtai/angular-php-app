@@ -1,0 +1,38 @@
+.content-wrapper {
+	margin: 0 auto;
+	padding: 1em;
+	max-width: 600px;
+}
+
+.content-wrapper .header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1em;
+}
+
+.content-wrapper .header > div {
+	padding: 1em;
+	flex-grow: 1;
+}
+
+.content-wrapper .header > div:nth-child(2) {
+	text-align: right;
+}
+
+.content-wrapper .header button {
+	font-size: 1em;
+	color: var(--blue1);
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+	padding: .5em 0;
+}
+
+::ng-deep .mat-form-field-flex .mat-form-field-label {
+	margin-top: -.8em;
+}
+
+::ng-deep .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+	transform: translateY(-1em) scale(.75) !important;
+}

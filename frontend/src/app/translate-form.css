@@ -1,0 +1,97 @@
+.form-wrapper {
+	display: grid;
+	margin: 1em auto;
+	padding: 1em;
+	max-width: 640px;
+	box-shadow: 0px 0px 2px #ccc;
+	border-radius: 4px;
+}
+.form-header{
+	padding: 1em 0;
+	border-bottom: solid #efefef 1px;
+}
+.form-header .title {
+	font-size: 20px;
+}
+.gap{
+	gap: 2em;
+}
+.lbl-inpt-wrapper {
+	padding: 8px 0;
+}
+.lbl-inpt-wrapper mat-form-field {
+	display: block;
+}
+.section-header{
+	position: relative;
+	padding: 1em 0;
+}
+.section-header .title {
+	font-size: 18px;
+}
+.err {
+	color: #c00;
+}
+.examples-wrapper {
+	padding: 1em;
+	margin-bottom: 1em;
+	border: solid #eee 1px;
+	border-radius: 5px;
+}
+.synonyms-list {
+	padding: 1em 0;
+}
+.synonym-item {
+	padding: 1em;
+	margin-bottom: 1em;
+	border: solid #eee 1px;
+	border-radius: 5px;
+}
+.sentences-list .flex {
+	gap: 10px;
+}
+.sentences-list .lbl-inpt-wrapper {
+	padding: 0;
+}
+span.link-btn,
+span.del-btn {
+	display: inline-flex;
+	padding: 4px;
+	cursor: pointer;
+}
+span.link-btn {
+	color: var(--blue1);
+}
+span.del-btn{
+	color: #c00;
+}
+span.syn-btn {
+	margin-top: 1em;
+}
+.sentences-list .close-btn {
+	display: inline-block;
+	margin: 1em 0;
+	cursor: pointer;
+}
+.form-footer {
+	padding: 1em 0;
+	border-top: solid #efefef 1px;
+}
+.form-footer button {
+	padding: 4px 0;
+	width: 160px;
+	font-size: 1em;
+}
+.form-footer button:not(.save-btn) {
+	background: #efefef;
+}
+.form-footer > div > div:nth-child(2) {
+	text-align: right;
+}
+.form-footer button.save-btn {
+	background-color: var(--blue1);
+	color: #fff;
+}
+.form-footer button[disabled] {
+	opacity: .5;
+}

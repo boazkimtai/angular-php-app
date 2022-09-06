@@ -1,0 +1,235 @@
+<div class="form-wrapper">
+  <div>
+    <form [formGroup]="form">
+    	<div class="form-header">
+    		<span class="title">Translate</span>
+    	</div>
+      <div [hidden]="step!=0">
+        <div class="flex justify-center items-center gap">
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>Select language</mat-label>
+              <mat-select formControlName="lang1_id">
+                <mat-option *ngFor="let language of languages" [value]="language.id" [disabled]="form.value.lang2_id==language.id">
+                  <span>{{language.name}}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['lang1_id'].invalid">
+                language is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>{{findLanguageById(form.value.lang1_id)?.name}} phrase</mat-label>
+              <input type="text" name="" maxlength="100" formControlName="lang1_phrase" (blur)="isInputFocused=false" (focus)="isInputFocused=true" matInput/>
+              <mat-error *ngIf="form.controls['lang1_phrase'].errors?.['required']">
+                this field is required   
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap">
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>Select language</mat-label>
+              <mat-select formControlName="lang2_id">
+                <mat-option *ngFor="let language of languages" [value]="language.id" [disabled]="form.value.lang1_id==language.id">
+                  <span>{{language.name}}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['lang1_id'].invalid">
+                this field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>{{findLanguageById(form.value.lang2_id)?.name}} phrase</mat-label>
+              <input type="text" name="" maxlength="100" formControlName="lang2_phrase" (blur)="isInputFocused=false" (focus)="isInputFocused=true" matInput/>
+              <mat-error *ngIf="form.controls['lang1_phrase'].errors?.['required']">
+                this field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="!englishSelected() && form.value.term">
+            <span>Equivalent English term is '{{form.value.term}}'</span>
+            <span class="link-btn" (click)="showSelectTermDialog()">change</span>
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap">
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>Part of speech</mat-label>
+              <mat-select formControlName="part_of_speech">
+                <mat-option *ngFor="let type of partsOfSpeech" [value]="type">
+                  <span>{{type | titlecase}}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['part_of_speech'].errors?.['required']">
+                this field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="form.value.part_of_speech=='NOUN' && englishSelected()">
+          <div class="flex justify-center items-center gap">
+            <div class="flex-grow-1 lbl-inpt-wrapper">
+              <mat-form-field>
+                <mat-label>Singular form</mat-label>
+                <input type="" name="" formControlName="singular" matInput/>
+              </mat-form-field>
+            </div>
+            <div class="flex-grow-1 lbl-inpt-wrapper">
+              <mat-form-field>
+                <mat-label>Plural form</mat-label>
+                <input type="" name="" formControlName="plural" matInput/>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="form.value.part_of_speech=='VERB' && englishSelected()" formGroupName="verbs">
+            <div class="flex justify-center items-center gap">
+              <div class="flex-grow-1 lbl-inpt-wrapper">
+                <mat-form-field>
+                  <mat-label>Past *</mat-label>
+                  <input type="" name="" formControlName="past" matInput/>
+                </mat-form-field>
+              </div>
+              <div class="flex-grow-1 lbl-inpt-wrapper">
+                <mat-form-field>
+                  <mat-label>Part participle *</mat-label>
+                  <input type="" name="" formControlName="past_participle" matInput/>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap">
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>Definition in {{findLanguageById(form.value.lang1_id)?.name}}</mat-label>
+              <textarea type="" name="" maxlength="100" formControlName="lang1_def" matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex justify-center items-center gap">
+          <div class="flex-grow-1 lbl-inpt-wrapper">
+            <mat-form-field>
+              <mat-label>Definition in {{findLanguageById(form.value.lang2_id)?.name}}</mat-label>
+              <textarea type="" name="" maxlength="100" formControlName="lang2_def" matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="examples-wrapper">
+          <ng-container *ngTemplateOutlet="examplesTemplate; context: {examplesControl: lang1_examples, title: findLanguageById(form.value.lang1_id)?.name}"></ng-container>
+        </div>
+        <div class="examples-wrapper">
+          <ng-container *ngTemplateOutlet="examplesTemplate; context: {examplesControl: lang2_examples, title: findLanguageById(form.value.lang2_id)?.name}"></ng-container>
+        </div>
+      </div>
+      <ng-container *ngTemplateOutlet="synonymsTemplate"></ng-container>
+      <ng-template #synonymsTemplate>
+        <div [hidden]="step!=1" class="synonyms-list" formArrayName="synonyms">
+          <div class="section-header">
+            <div>
+              <span class="title">Synonyms</span>
+            </div>
+          </div>
+          <div class="synonym-item" *ngFor="let synonym of synonyms.controls; let i = index" [formGroupName]="i">
+            <div class="flex justify-center items-center gap">
+              <div class="flex-grow-1 lbl-inpt-wrapper">
+                <mat-form-field>
+                  <mat-label>Select language</mat-label>
+                  <mat-select formControlName="language_id">
+                    <mat-option *ngFor="let language of languages" [value]="language.id">
+                      <span>{{language.name}}</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="flex-grow-1 lbl-inpt-wrapper">
+                <mat-form-field>
+                  <mat-label>Synonym</mat-label>
+                  <input type="text" name="" maxlength="100" formControlName="phrase" matInput/>
+                </mat-form-field>
+              </div>
+            </div>
+            <div>
+              <span class="err" *ngIf="synonym.errors">Both language and synonym are required</span>
+            </div>
+            <div>
+              <div class="lbl-inpt-wrapper">
+                <mat-form-field>
+                  <mat-label>Definition in {{findLanguageById(synonym.value.language_id)?.name}}</mat-label>
+                  <input type="text" name="" maxlength="200" formControlName="def" matInput/>
+                </mat-form-field>
+              </div>
+            </div>
+            <div formArrayName="examples">
+              <ng-container *ngTemplateOutlet="examplesTemplate; context:{examplesControl:getSynExamplesControl(i)}">
+              </ng-container>
+            </div>
+            <div>
+              <span class="del-btn syn-btn" (click)="removeSynonym(i)">
+                <mat-icon>remove</mat-icon>
+                <span>Remove synonym</span>
+              </span>
+            </div>
+          </div>
+          <div>
+            <span class="link-btn syn-btn" (click)="addSynonym()">
+              <mat-icon>add</mat-icon>
+              <span>Add synonym</span>
+            </span>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #examplesTemplate let-examplesControl="examplesControl" let-title="title">
+        <div>
+          <div>
+            <p *ngIf="title">{{title}} sentences examples</p>
+            <p *ngIf="!title">Sentences examples</p>
+          </div>
+          <div class="sentences-list">
+            <div class="flex lbl-inpt-wrapper" *ngFor="let example of examplesControl.controls;let k=index ">
+              <div class="flex-grow-1 lbl-inpt-wrapper">
+                <mat-form-field>
+                  <input matInput max="200" [formControl]="example" placeholder="Type a sentence"/>
+                </mat-form-field>
+              </div>
+              <div>
+                <span class="close-btn" (click)="removeExample(examplesControl, k)" [hidden]="examplesControl.length==1">
+                  <mat-icon>close</mat-icon>
+                </span>
+              </div>
+            </div>
+            <div>
+              <span class="link-btn" (click)="addExample(examplesControl)">
+                <mat-icon>add</mat-icon>
+                <span>Add example</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="form-footer">
+        <div class="flex justify-center items-center">
+          <div class="flex-grow-1">
+            <button (click)="step=0" *ngIf="step!=0" mat-button>Back</button>
+          </div>
+          <div class="flex-grow-1">
+            <button *ngIf="step==0" type="submit" class="save-btn" (click)="validateStep(0)" mat-button>Next</button>
+            <button *ngIf="step==1" type="submit" class="save-btn" (click)="validateStep(1)" mat-button [disabled]="isSaving">
+              <span *ngIf="!isSaving">Save</span>
+              <span *ngIf="isSaving">Saving...</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+   </div>
+</div>
